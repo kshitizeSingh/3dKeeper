@@ -1,1 +1,29 @@
-<p>main works!</p>
+<p-sidebar [(visible)]="visibleSidebar1" styleClass="ui-sidebar-sm" [baseZIndex]="10000">
+    <app-show-user></app-show-user>
+</p-sidebar>
+
+<main class="row">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default " style="z-index: 99; background-color: white;">
+            <div class="container-fluid">
+
+                <i class='fas fa-stream' style='font-size:24px ;color: grey;margin-left: -15px' (click)="visibleSidebar1 = true"></i>
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">3d Keeper</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</main>
+
+<br>
+<main class="row">
+    <div class="offset-sm-2 col-sm-8">
+        <div class="boxShadow">
+            hi
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+</main>

@@ -1,0 +1,11 @@
+.imgIcon {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+}
+
+.alingment {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

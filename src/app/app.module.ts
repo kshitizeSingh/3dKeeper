@@ -17,11 +17,18 @@ import {UserService} from './service/user.service';
 import { MainComponent } from './components/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 
+//prime
+import {CardModule} from 'primeng/card';
+import {SidebarModule} from 'primeng/sidebar';
+import {ButtonModule} from 'primeng/button';
+import { ShowUserComponent } from './components/show-user/show-user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    ShowUserComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,10 @@ import { LoginComponent } from './components/login/login.component';
     AngularFirestoreModule,
     AppRoutingModule,
     AccordionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CardModule,
+    SidebarModule,
+    ButtonModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
