@@ -22,13 +22,23 @@ import {CardModule} from 'primeng/card';
 import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import { ShowUserComponent } from './components/show-user/show-user.component';
+import { PrinterComponent } from './components/printer/printer.component';
+import { FilamentsComponent } from './components/filaments/filaments.component';
+import { ProductCatalogueComponent } from './components/product-catalogue/product-catalogue.component';
+import { SalesComponent } from './components/sales/sales.component';
+import { CreateBillComponent } from './components/create-bill/create-bill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    ShowUserComponent
+    ShowUserComponent,
+    PrinterComponent,
+    FilamentsComponent,
+    ProductCatalogueComponent,
+    SalesComponent,
+    CreateBillComponent
   ],
   imports: [
     BrowserModule,

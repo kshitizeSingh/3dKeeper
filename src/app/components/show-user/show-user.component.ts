@@ -9,15 +9,18 @@ import {AuthService} from 'src/app/service/auth.service';
 export class ShowUserComponent implements OnInit {
 
   loggedUser
-  constructor(private auth:AuthService) { 
-    auth.user$.subscribe(
-      user=>{
-        this.loggedUser=user
-      }
-    )
+  constructor(public auth:AuthService) { 
+   
   }
 
   ngOnInit() {
+    console.time('load')
+    this.auth.user$.subscribe(
+      user=>{
+        console.timeEnd('load')
+        this.loggedUser=user
+      }
+    )
   }
 
 }
