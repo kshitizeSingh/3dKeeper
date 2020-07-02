@@ -12,6 +12,8 @@ import { auth } from 'firebase/app';
 })
 export class AuthService {
   user$:Observable<any>
+  printers$
+
 
   constructor(public auth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$=this.auth.authState.pipe(
@@ -23,6 +25,15 @@ export class AuthService {
         }
       })
     )
+    // this.printers$=this.auth.authState.pipe(
+    //   switchMap(user=>{
+    //     if(user){
+    //       return afs.doc<any>(`users/${user.uid}`).collection<any>('printers')
+    //     }else{
+    //       return of(null)
+    //     }
+    //   })
+    // )
   }
 
   async googleSingIn(){

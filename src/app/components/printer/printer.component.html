@@ -1,1 +1,52 @@
-<p>printer works!</p>
+<main class="row">
+    <section class="col-sm-12">
+        <p-table [columns]="cols" [value]="printerList" dataKey="vin">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 3em"></th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+                <tr>
+                    <td>
+                        <a href="#" [pRowToggler]="rowData">
+                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                        </a>
+                    </td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <!-- x{{selectedAdSetList=='[]'| json}} -->
+                <tr *ngIf="printerList.length==0">
+                    <td colspan="3">No Printer added yet</td>
+                    <td (click)="printerDisplay=true">
+                        Add Printer <i class="fas fa-plus"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </section>
+</main>
+<p-dialog header="Add Printer" [(visible)]="printerDisplay" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+    <h5>Add Printer</h5>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="newPrinter.printerName"><br>
+
+    <label>EC/HR</label>
+    <input type="text" [(ngModel)]="newPrinter.ecPerHr"><br>
+
+    <label>Rate/HR</label>
+    <input type="text" [(ngModel)]="newPrinter.ratePerHr">
+
+    <button (click)="addPrinter()">AddPrinter</button>
+
+
+
+</p-dialog>

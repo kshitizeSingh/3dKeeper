@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import{FormsModule} from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,10 @@ import { FilamentsComponent } from './components/filaments/filaments.component';
 import { ProductCatalogueComponent } from './components/product-catalogue/product-catalogue.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { CreateBillComponent } from './components/create-bill/create-bill.component';
+import {TableModule} from 'primeng/table';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {DialogModule} from 'primeng/dialog';
+import {AuthService} from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -48,12 +53,16 @@ import { CreateBillComponent } from './components/create-bill/create-bill.compon
     AngularFirestoreModule,
     AppRoutingModule,
     AccordionModule,
+    TableModule,
     BrowserAnimationsModule,
     CardModule,
     SidebarModule,
-    ButtonModule
+    ScrollPanelModule,
+    DialogModule,
+    ButtonModule,
+    FormsModule
   ],
-  providers: [UserService],
+  providers: [AuthService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
