@@ -18,12 +18,12 @@ export class AppComponent {
   title = 'Keeper';
   constructor(public auth: AuthService,public userService:UserService,public router:Router) {
     auth.user$.subscribe(user=>{
-      // if(user){
-      //   router.navigate(['/'])
-      // }
-      // else{
-      //   router.navigate(['/login'])
-      // }
+      if(user){
+        // router.navigate(['/'])
+      }
+      else{
+        router.navigate(['/login'])
+      }
     })
   }
   
