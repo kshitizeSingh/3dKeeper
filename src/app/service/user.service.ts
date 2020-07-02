@@ -10,28 +10,24 @@ import {switchMap} from 'rxjs/operators';
 export class UserService {
   
   printers$
+  catalogue$
+  sales$
+  filament$
   // :Observable<any>
   userDoc$
   constructor( private afs: AngularFirestore, public auth:AuthService) { 
     this.auth.user$.subscribe(user=>{
       console.log('user service formed')
       this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
-      // this.printers$=this.userDoc$.collection<any>('printers')
+      this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
+      this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
+      this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
     })
-    // this.printers$=this.auth.user$.pipe(
-    //   switchMap()
-    // )
+   
   }
 
   getUser(userId){
     return this.afs.doc<any>('users/'+userId);
-  }
-
-  addUserInCollection(uid,user){
-    console.log(uid,user)
-    let newUser=JSON.parse(JSON.stringify(user))
-    return this.afs.collection('users').doc(uid).set(newUser);
-    // return this.db.collection("users").add(user);
   }
 
   addPrinterToStore(printerObj){
@@ -39,8 +35,18 @@ export class UserService {
     this.printers$.add(printerObj)
   }
 
-  getPrinters(){
-
+  addFillament(filamentObj){
+    this.filament$.add(filamentObj)
   }
+
+  addSale(saleObj){
+    this.sales$.add(saleObj)
+  }
+
+  addProduct(productObj){
+    this.catalogue$.add(productObj)
+  }
+
+
 
 }

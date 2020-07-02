@@ -59,11 +59,12 @@ export class AuthService {
       email:user.email,
       displayName:user.displayName,
       photoUrl:user.photoURL,
-      filaments:[],
-      catalogue:[],
-      printers:[],
-      sales:[],
-      userLicence:{}
+      userLicence:'trial'
+      // filaments:[],
+      // catalogue:[],
+      // printers:[],
+      // sales:[],
+      // userLicence:{}
     }
 
     return userRef.set(data,{merge:true})
