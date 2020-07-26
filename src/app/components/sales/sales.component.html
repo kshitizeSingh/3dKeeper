@@ -1,1 +1,52 @@
-<p>sales works!</p>
+<main class="row pad10">
+    <section class="col-sm-12">
+        <section class="row">
+            <div class="col-md-8">
+                <h3>New sales</h3>
+            </div>
+        </section>
+        <br>
+        <section class="row">
+            <div class="col-md-8">
+                <label class="labelFormat">Customer Name:</label>
+                <input type="text" size="30" pInputText>
+            </div>
+        </section>
+        <br>
+        <br>
+        <section class="row">
+            <div class="col-md-8">
+                <label class="labelFormat">Select a product:</label>
+                <p-dropdown [options]="productList" [(ngModel)]="selectedProduct" placeholder="Select a product" (onChange)="calculateCost()"></p-dropdown>
+            </div>
+        </section>
+        <br>
+        <section class="row">
+            <div class="col-md-8">
+                <label class="labelFormat">Select a printer:</label>
+                <p-dropdown [options]="printerList" [(ngModel)]="selectedPrinter" placeholder="Select a printer" (onChange)="calculateCost()"></p-dropdown>
+            </div>
+        </section>
+        <br>
+        <section class="row">
+            <div class="col-md-8">
+                <label class="labelFormat">Select a Fillament:</label>
+                <p-dropdown [options]="fillamentList" [(ngModel)]="selectedFillament" placeholder="Select a fillament" (onChange)="calculateCost()"></p-dropdown>
+
+            </div>
+        </section>
+        <br>
+        <section class="row">
+            <div class="col-md-8">
+                <h5> cost:</h5>
+                {{ cost }}
+                <br> {{costProfit}}
+            </div>
+        </section>
+
+
+
+
+
+    </section>
+</main>

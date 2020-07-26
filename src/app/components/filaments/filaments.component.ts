@@ -9,7 +9,7 @@ import {UserService} from 'src/app/service/user.service';
 })
 export class FilamentsComponent implements OnInit {
 
-  filamentList
+  filamentList=[]
   addFilamentDisplay
   cols=[
     { field: 'color', header: 'Color' },

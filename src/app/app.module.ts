@@ -33,6 +33,8 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {DialogModule} from 'primeng/dialog';
 import {AuthService} from './service/auth.service';
 
+import {DropdownModule} from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +62,8 @@ import {AuthService} from './service/auth.service';
     ScrollPanelModule,
     DialogModule,
     ButtonModule,
-    FormsModule
+    FormsModule,
+    DropdownModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent]

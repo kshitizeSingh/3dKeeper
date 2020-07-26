@@ -17,11 +17,12 @@ export class UserService {
   userDoc$
   constructor( private afs: AngularFirestore, public auth:AuthService) { 
     this.auth.user$.subscribe(user=>{
-      console.log('user service formed')
-      this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
-      this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
-      this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
-      this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
+      if(user){
+        this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
+        this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
+        this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
+        this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
+      }
     })
    
   }
