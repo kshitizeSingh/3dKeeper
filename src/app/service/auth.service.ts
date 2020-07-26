@@ -13,18 +13,26 @@ import { auth } from 'firebase/app';
 export class AuthService {
   user$:Observable<any>
   printers$
+  catalogue$
+  sales$
+  filament$
 
 
   constructor(public auth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$=this.auth.authState.pipe(
       switchMap(user=>{
         if(user){
+          this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
+          this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
+          this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
+          this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
           return afs.doc<any>(`users/${user.uid}`).valueChanges()
         }else{
           return of(null)
         }
       })
     )
+
     // this.printers$=this.auth.authState.pipe(
     //   switchMap(user=>{
     //     if(user){
@@ -34,6 +42,7 @@ export class AuthService {
     //     }
     //   })
     // )
+
   }
 
   async googleSingIn(){

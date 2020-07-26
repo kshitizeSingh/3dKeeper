@@ -21,13 +21,13 @@
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template pTemplate="footer" let-columns="columns">
                 <!-- x{{selectedAdSetList=='[]'| json}} -->
                 <tr *ngIf="printerList.length==0">
-                    <td colspan="3">No Printer added yet</td>
-                    <td (click)="printerDisplay=true">
+                    <td [attr.colspan]="columns.length + 1">No Printer added yet</td>
+                    <!-- <td (click)="printerDisplay=true">
                         Add Printer <i class="fas fa-plus"></i>
-                    </td>
+                    </td> -->
                 </tr>
             </ng-template>
         </p-table>

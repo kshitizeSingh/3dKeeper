@@ -58,10 +58,10 @@ export class PrinterComponent implements OnInit {
       ecPerHr:this.newPrinter.ecPerHr,
       ratePrHr:this.newPrinter.ratePerHr
     }
-    this.printerList.push(request
-      )
+    // this.printerList.push(request
+    //   )
       this.printerDisplay=false
-    // this.userService.addPrinterToStore(request)
+    this.userService.addPrinterToStore(request)
   }
 
 }
