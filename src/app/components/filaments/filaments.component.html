@@ -23,8 +23,10 @@
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
                 <tr>
-                    <td [attr.colspan]="columns.length + 1">
-                        {{rowData|json}}
+                    <td [attr.colspan]="columns?.length + 1">
+                        <pre>
+                            {{rowData | json}}
+                        </pre>
                     </td>
                 </tr>
             </ng-template>

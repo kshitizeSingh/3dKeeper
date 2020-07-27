@@ -11,6 +11,10 @@ body {
     width: 100%;
 }
 
+label {
+    font-weight: 500;
+}
+
 .labelFormat {
     position: absolute;
     margin-top: -20px;
@@ -23,7 +27,7 @@ body {
 
 .addButtonArea {
     position: fixed;
-    bottom: 0;
+    bottom: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,5 +54,32 @@ body {
 }
 
 .addButton:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.inputWidth {
+    width: 40px;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.normalButton {
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    padding: 5px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s;
+    border: none;
+}
+
+.normalButton:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }

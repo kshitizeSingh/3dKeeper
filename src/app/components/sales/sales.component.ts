@@ -18,10 +18,16 @@ export class SalesComponent implements OnInit {
   selectedPrinter
   selectedFillament
 
+  quantity=1
   profit=10
+  cost=0
+  costProfit=0
 
-  cost
-  costProfit
+  cusromerName
+  dileveryDate
+  phoneNo
+  customerEmail
+  customerAddress
 
   constructor(public userService:UserService, public dataShareService:DataShareService ) { }
 
@@ -40,15 +46,19 @@ export class SalesComponent implements OnInit {
     this.userService.printers$.valueChanges().subscribe(printers=>{
       this.printerList=this.dataShareService.getDropOption(printers,'printer')
       this.selectedPrinter=this.printerList[0].value
+      console.log(this.selectedPrinter)
+
     })
     this.userService.catalogue$.valueChanges().subscribe(catalogues=>{
       this.productList=this.dataShareService.getDropOption(catalogues,'itemName')
       this.selectedProduct=this.productList[0].value
+      console.log(this.selectedProduct)
+
     })
     this.userService.filament$.valueChanges().subscribe(filaments=>{
       this.fillamentList=this.dataShareService.getDropOption(filaments,'color')
       this.selectedFillament=this.fillamentList[0].value
-      // console.log(this.selectedFillament)
+      console.log(this.selectedFillament)
     })
 
   }
@@ -61,9 +71,36 @@ export class SalesComponent implements OnInit {
       this.cost=cost
       this.costProfit=this.cost+cost*this.profit/100
       console.log(cost)
-    }
-    
+    }   
   }
+  
+  saveSale(){
+    let newUser={
+      cusromerName:this.cusromerName,
+      phoneNo:this.phoneNo,
+      customerEmail:this.cusromerName,
+      customerAddress:this.customerAddress
+    }
+    let req={
+      product:this.selectedProduct.itemName,
+      printer:this.selectedPrinter.printer,
+      fillament:this.selectedFillament.color,
+      quotedCost:this.costProfit*this.quantity,
+      profitMargin:this.profit,
+      quantity:this.quantity,
+      dileveryDate:this.dileveryDate,
+      cusromerName:this.cusromerName,
+      phoneNo:this.phoneNo,
+      customerEmail:this.cusromerName,
+      customerAddress:this.customerAddress,
+    }
+
+    let success=this.userService.addSale(req)
+    console.log(success)
+
+  }
+
+
  
 
 }

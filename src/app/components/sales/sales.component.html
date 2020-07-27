@@ -1,21 +1,13 @@
 <main class="row pad10">
     <section class="col-sm-12">
         <section class="row">
-            <div class="col-md-8">
-                <h3>New sales</h3>
+            <div class="col-md-12">
+                <h3>New Sale</h3>
             </div>
         </section>
         <br>
         <section class="row">
-            <div class="col-md-8">
-                <label class="labelFormat">Customer Name:</label>
-                <input type="text" size="30" pInputText>
-            </div>
-        </section>
-        <br>
-        <br>
-        <section class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <label class="labelFormat">Select a product:</label>
                 <p-dropdown [options]="productList" [(ngModel)]="selectedProduct" placeholder="Select a product" (onChange)="calculateCost()"></p-dropdown>
             </div>
@@ -35,18 +27,55 @@
 
             </div>
         </section>
-        <br>
+        <hr>
         <section class="row">
-            <div class="col-md-8">
-                <h5> cost:</h5>
-                {{ cost }}
-                <br> {{costProfit}}
+            <div class="col-md-8 text-right">
+                Per Unit cost :<label> &#8377;</label> {{ cost }}
+                <br> Profit margin :<input type="number" [(ngModel)]="profit" class="inputWidth" (ngModelChange)="calculateCost()"> <label>%</label>
+                <br> Cost pet item :<label> &#8377;</label> {{costProfit}}
+                <br> Quantity :<input type="number" [(ngModel)]="quantity" class="inputWidth">
+
             </div>
         </section>
+        <h5><label> &#8377;</label> {{costProfit*quantity}}</h5>
+        <button *ngIf="!proceed" (click)="proceed='true'" class="fullWidth normalButton">proceed</button>
+        <br>
+        <br>
+        <section *ngIf="proceed">
+            <h5>Customer Info</h5>
+            <section class="row">
+
+                <div class="col-md-12 mt30">
+                    <label class="labelFormat">Customer Name:</label>
+                    <input type="text" size="30" pInputText class="fullWidth" [(ngModel)]="cusromerName">
+                </div>
+
+                <div class="col-md-12 mt30">
+                    <label class="labelFormat">Dilevery Date:</label>
+                    <input type="date" size="30" pInputText class="fullWidth" [(ngModel)]="dileveryDate">
+                </div>
+
+                <div class="col-md-12 mt30">
+                    <label class="labelFormat">Customer PhoneNo:</label>
+                    <input type="text" size="30" pInputText class="fullWidth" [(ngModel)]="phoneNo">
+                </div>
+                <div class="col-md-12 mt30">
+                    <label class="labelFormat">Customer Email:</label>
+                    <input type="text" size="30" pInputText class="fullWidth" [(ngModel)]="customerAddress">
+                </div>
+
+                <div class="col-md-12 mt30">
+                    <label class="labelFormat">Customer Address:</label>
+                    <input type="text" size="30" pInputText class="fullWidth">
+                </div>
+            </section>
+            <button *ngIf="proceed" (click)="saveSale()" class="fullWidth normalButton mt30 ">Save</button>
 
 
-
-
+        </section>
+        <br>
+        <br>
+        <br>
 
     </section>
 </main>

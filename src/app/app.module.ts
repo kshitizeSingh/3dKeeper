@@ -6,7 +6,7 @@ import{FormsModule} from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';  
+import {MenuItem, MessageService} from 'primeng/api';  
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
@@ -32,8 +32,9 @@ import {TableModule} from 'primeng/table';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {DialogModule} from 'primeng/dialog';
 import {AuthService} from './service/auth.service';
-
+import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
+import { MySalesComponent } from './components/my-sales/my-sales.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {DropdownModule} from 'primeng/dropdown';
     FilamentsComponent,
     ProductCatalogueComponent,
     SalesComponent,
-    CreateBillComponent
+    CreateBillComponent,
+    MySalesComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +65,10 @@ import {DropdownModule} from 'primeng/dropdown';
     DialogModule,
     ButtonModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    ToastModule,
   ],
-  providers: [AuthService,UserService],
+  providers: [MessageService,AuthService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

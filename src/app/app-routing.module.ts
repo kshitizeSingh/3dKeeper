@@ -8,6 +8,7 @@ import {FilamentsComponent} from './components/filaments/filaments.component';
 import {ProductCatalogueComponent} from './components/product-catalogue/product-catalogue.component';
 import {SalesComponent} from './components/sales/sales.component';
 import {CreateBillComponent} from './components/create-bill/create-bill.component';
+import {MySalesComponent} from './components/my-sales/my-sales.component';
 
 const routes: Routes = [
   {
@@ -30,11 +31,15 @@ const routes: Routes = [
         component: SalesComponent,
       },
       {
+        path: "mysales",
+        component: MySalesComponent,
+      },
+      {
         path: "generateBill",
         component: CreateBillComponent,
       },
-      { path: "", redirectTo: "sales", pathMatch: "full" },
-      { path: "**", redirectTo: "sales" },
+      { path: "", redirectTo: "mysales", pathMatch: "full" },
+      { path: "**", redirectTo: "mysales" },
     ],
   },
   { path: "login", component: LoginComponent },
