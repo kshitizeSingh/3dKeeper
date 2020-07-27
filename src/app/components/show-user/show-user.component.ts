@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 import {AuthService} from 'src/app/service/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-show-user',
@@ -8,8 +9,9 @@ import {AuthService} from 'src/app/service/auth.service';
 })
 export class ShowUserComponent implements OnInit {
 
+  @Output()  closeSidebar= new EventEmitter()
   loggedUser
-  constructor(public auth:AuthService) { 
+  constructor(public auth:AuthService, private router: Router) { 
    
   }
 
@@ -21,6 +23,11 @@ export class ShowUserComponent implements OnInit {
         this.loggedUser=user
       }
     )
+  }
+
+  navigate(path){
+    this.router.navigate(["/landing/"+path])
+    this.closeSidebar.emit(true)
   }
 
 }

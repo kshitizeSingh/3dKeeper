@@ -25,6 +25,9 @@ export class ProductCatalogueComponent implements OnInit {
     this.catalogue=new Catalogue
     console.log(this.auth.user$)
     this.userService.catalogue$.valueChanges().subscribe(catalogues=>{
+      catalogues.forEach(ele=>{
+        ele['uid']=ele.itemName+'-'+ele.weight
+      })
       console.log(catalogues)
       this.catalogueList=catalogues
     })

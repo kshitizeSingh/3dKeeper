@@ -7,26 +7,20 @@
         <br>
         <br>
         <br>
-        <a [routerLink]="['/landing/printers']">printers</a>
+        <a (click)="navigate('printers')">printers</a>
         <br>
-        <a [routerLink]="['/landing/filaments']">filaments</a>
-        <br>
-
-        <a [routerLink]="['/landing/mysales']">sales</a>
+        <a (click)="navigate('filaments')">filaments</a>
         <br>
 
-        <a [routerLink]="['/landing/catalogue']">product catalogue</a>
+        <a (click)="navigate('mysales')">sales</a>
+        <br>
+        <a (click)="navigate('catalogue')">product catalogue</a>
         <br>
 
         <br>
         <br> <br>
         <br>
-
-
         <button pButton type="button" label="Logout" class="ui-button-secondary" (click)="auth.logout()"></button>
-
-
-
         <!-- {{auth.user$.displayName| async}} -->
     </section>
 </main>

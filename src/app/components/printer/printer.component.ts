@@ -23,7 +23,11 @@ import {UserService} from 'src/app/service/user.service';
 })
 export class PrinterComponent implements OnInit {
 
-  cols
+  cols=[
+    { field: 'printer', header: 'Printer' },
+    { field: 'ecPerHr', header: 'EC/HR' },
+    { field: 'ratePrHr', header: 'Rate/HR' },
+];
   printerList=[]
   printerDisplay
 
@@ -36,8 +40,12 @@ export class PrinterComponent implements OnInit {
   constructor(public auth:AuthService, public userService:UserService) { }
 
   ngOnInit() {
+
     console.log(this.auth.user$)
     this.userService.printers$.valueChanges().subscribe(printers=>{
+      printers.forEach(ele=>{
+        ele['uid']=ele.printer+'-'+ele.ratePrHr
+      })
       console.log(printers)
       this.printerList=printers
     })
@@ -45,11 +53,7 @@ export class PrinterComponent implements OnInit {
     //   console.log(user)
     //   this.printerList=user.printers
     // })
-    this.cols = [
-      { field: 'printer', header: 'Printer' },
-      { field: 'ecPerHr', header: 'EC/HR' },
-      { field: 'ratePrHr', header: 'Rate/HR' },
-  ];
+    
   }
 
   addPrinter(){

@@ -27,9 +27,13 @@ export class FilamentsComponent implements OnInit {
     console.log(this.auth.user$)
     this.userService.filament$.valueChanges().subscribe(filaments=>{
       console.log(filaments)
+      filaments.forEach(ele=>{
+        ele['uid']=ele.color+'-'+ele.type
+      })
       this.filamentList=filaments
     })
   }
+
   addFilament(){
     let request={
       color:this.filament.color,

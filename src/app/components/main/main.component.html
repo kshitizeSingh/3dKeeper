@@ -1,5 +1,5 @@
 <p-sidebar [(visible)]="visibleSidebar1" styleClass="ui-sidebar-sm" [baseZIndex]="10000">
-    <app-show-user></app-show-user>
+    <app-show-user (closeSidebar)="closeSidebar($event)"></app-show-user>
 </p-sidebar>
 
 <main class="row">

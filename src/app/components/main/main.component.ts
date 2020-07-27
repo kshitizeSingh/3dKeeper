@@ -13,4 +13,8 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
+  closeSidebar(event){
+    this.visibleSidebar1=!event
+  }
+
 }

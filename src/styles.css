@@ -25,6 +25,11 @@ label {
     padding: 10px;
 }
 
+a {
+    color: #007bff !important;
+    cursor: pointer;
+}
+
 .addButtonArea {
     position: fixed;
     bottom: 30px;
