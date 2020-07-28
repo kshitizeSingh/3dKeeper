@@ -14,6 +14,8 @@ export class SalesComponent implements OnInit {
   printerList=[]
   fillamentList=[]
 
+  proceed=false
+
   selectedProduct
   selectedPrinter
   selectedFillament

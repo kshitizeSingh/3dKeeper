@@ -35,6 +35,7 @@ import {AuthService} from './service/auth.service';
 import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
 import { MySalesComponent } from './components/my-sales/my-sales.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { MySalesComponent } from './components/my-sales/my-sales.component';
     FormsModule,
     DropdownModule,
     ToastModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [MessageService,AuthService,UserService],
   bootstrap: [AppComponent]
