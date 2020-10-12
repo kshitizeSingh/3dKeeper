@@ -16,11 +16,13 @@ export class UserService {
   catalogue$;
   sales$;
   filament$;
+  userId
   // :Observable<any>
   userDoc$;
   constructor(private afs: AngularFirestore, public auth: AuthService,private messageService: MessageService) {
     this.auth.user$.subscribe((user) => {
       if (user) {
+        this.userId=user.uid
         this.printers$ = afs
           .doc<any>("users/" + user.uid)
           .collection<any>("printers");
@@ -41,6 +43,7 @@ export class UserService {
     return this.afs.doc<any>("users/" + userId);
   }
 
+
   addPrinterToStore(printerObj) {
     try {
       this.printers$.add(printerObj);
@@ -49,6 +52,17 @@ export class UserService {
     } catch(err) {
       console.log("fail",err);
       return false;
+    }
+  }
+  
+  updatePrinter(id,obj){
+    try{
+      console.log(this.userId)
+      delete obj.id
+      this.afs.doc(`users/${this.userId}/printers/${id}`).update(obj);
+      console.log("pass");
+    }catch(err){
+      console.log("error",err)
     }
   }
 

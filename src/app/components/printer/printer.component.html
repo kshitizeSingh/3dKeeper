@@ -1,6 +1,6 @@
 <main class="row">
     <section class="col-sm-12">
-        <p-table [columns]="cols" [value]="printerList" dataKey="uid">
+        <p-table [columns]="cols" [value]="printerList" dataKey="id">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th style="width: 3em"></th>
@@ -24,16 +24,56 @@
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
                 <tr>
                     <td [attr.colspan]="columns?.length + 1">
-                        <pre>
-                            {{rowData | json}}
-                        </pre>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>Printer Name</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                <article *ngIf="!edit">
+                                    {{rowData.printer}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.printer">
+                                </article>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>Rate/Hour</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                {{rowData.ratePrHr}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>EC/Hour</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                {{rowData.ecPerHr}}
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between;">
+                            <section></section>
+                            <section>
+                                <div *ngIf="edit">
+                                    <button (click)="edit=0">Cancel</button>
+                                    <button (click)="updatePrinter(rowData);edit=0">Save</button>
+                                </div>
+                                <div *ngIf="!edit">
+                                    <button (click)="edit=1">Edit</button>
+                                </div>
+                            </section>
+
+                        </div>
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer" let-columns="columns">
                 <!-- x{{selectedAdSetList=='[]'| json}} -->
                 <tr *ngIf="printerList?.length==0">
-                    <td [attr.colspan]="columns?.length + 1">No Printer added yet</td>
+                    <td [attr.colspan]="cols?.length + 1">No Printer added yet</td>
                     <!-- <td (click)="printerDisplay=true">
                         Add Printer <i class="fas fa-plus"></i>
                     </td> -->
@@ -58,7 +98,5 @@
     <input type="text" [(ngModel)]="newPrinter.ratePerHr">
 
     <button (click)="addPrinter()">AddPrinter</button>
-
-
 
 </p-dialog>

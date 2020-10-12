@@ -22,10 +22,10 @@ export class AuthService {
     this.user$=this.auth.authState.pipe(
       switchMap(user=>{
         if(user){
-          this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
-          this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
-          this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
-          this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
+          // this.printers$=afs.doc<any>('users/'+user.uid).collection<any>('printers');
+          // this.catalogue$=afs.doc<any>('users/'+user.uid).collection<any>('catalogues');
+          // this.sales$=afs.doc<any>('users/'+user.uid).collection<any>('sales');
+          // this.filament$=afs.doc<any>('users/'+user.uid).collection<any>('filament');
           return afs.doc<any>(`users/${user.uid}`).valueChanges()
         }else{
           return of(null)

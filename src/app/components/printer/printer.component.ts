@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {AuthService} from 'src/app/service/auth.service';
 import {UserService} from 'src/app/service/user.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-printer',
@@ -42,10 +43,22 @@ export class PrinterComponent implements OnInit {
   ngOnInit() {
 
     console.log(this.auth.user$)
-    this.userService.printers$.valueChanges().subscribe(printers=>{
-      printers.forEach(ele=>{
-        ele['uid']=ele.printer+'-'+ele.ratePrHr
-      })
+    this.userService.printers$.snapshotChanges()
+    .pipe(
+      map((val:Array<any>) => {
+        console.log(val)
+        return val.map(a=>{
+          const data = a.payload.doc.data() ;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }))
+      
+    .subscribe(printers=>{
+      // printers.forEach(ele=>{
+      //   // ele.printer='n '+ele.printer
+      //   ele['uid']=ele.printer+'-'+ele.ratePrHr
+      // })
       console.log(printers)
       this.printerList=printers
     })
@@ -66,6 +79,11 @@ export class PrinterComponent implements OnInit {
     //   )
       this.printerDisplay=false
     this.userService.addPrinterToStore(request)
+  }
+
+  updatePrinter(value){
+    console.log(value)
+    this.userService.updatePrinter(value.id,value)
   }
 
 }
