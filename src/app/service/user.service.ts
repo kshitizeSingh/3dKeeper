@@ -6,7 +6,8 @@ import {
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import { switchMap } from "rxjs/operators";
-import {MessageService} from 'primeng/api';
+import { MessageService } from "primeng/api";
+import { Printer } from "../Models/printer";
 
 @Injectable({
   providedIn: "root",
@@ -16,13 +17,17 @@ export class UserService {
   catalogue$;
   sales$;
   filament$;
-  userId
+  userId;
   // :Observable<any>
   userDoc$;
-  constructor(private afs: AngularFirestore, public auth: AuthService,private messageService: MessageService) {
+  constructor(
+    private afs: AngularFirestore,
+    public auth: AuthService,
+    private messageService: MessageService
+  ) {
     this.auth.user$.subscribe((user) => {
       if (user) {
-        this.userId=user.uid
+        this.userId = user.uid;
         this.printers$ = afs
           .doc<any>("users/" + user.uid)
           .collection<any>("printers");
@@ -43,26 +48,65 @@ export class UserService {
     return this.afs.doc<any>("users/" + userId);
   }
 
-
   addPrinterToStore(printerObj) {
     try {
       this.printers$.add(printerObj);
       console.log("pass");
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Printer Added",
+      });
       return true;
-    } catch(err) {
-      console.log("fail",err);
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to Add Printer",
+      });
+      console.log("fail", err);
       return false;
     }
   }
-  
-  updatePrinter(id,obj){
-    try{
-      console.log(this.userId)
-      delete obj.id
-      this.afs.doc(`users/${this.userId}/printers/${id}`).update(obj);
-      console.log("pass");
-    }catch(err){
-      console.log("error",err)
+
+  updatePrinter(id, obj) {
+    try {
+      console.log(this.userId);
+      let updateObj: Printer = { ...obj };
+      // delete updateObj.id
+      console.log(updateObj);
+      this.afs.doc(`users/${this.userId}/printers/${id}`).update(updateObj);
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Printer Updated",
+      });
+      // console.log("pass");
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to Update Printer",
+      });
+      console.log("error", err);
+    }
+  }
+
+  deletePrinter(id) {
+    try {
+      this.afs.doc(`users/${this.userId}/printers/${id}`).delete();
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Printer Deleted",
+      });
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to delete Printer",
+      });
+      console.log("error", err);
     }
   }
 
@@ -70,25 +114,40 @@ export class UserService {
     try {
       this.filament$.add(filamentObj);
       console.log("pass");
-      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Fillament added'})
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Fillament added",
+      });
       return true;
-    } catch(err) {
-      this.messageService.add({severity:'error', summary: 'Error Message', detail:'Unable to add Fillament'});
-      console.log("fail",err);
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to add Fillament",
+      });
+      console.log("fail", err);
       return false;
     }
-    
   }
 
   addSale(saleObj) {
     try {
       console.log(saleObj);
       this.sales$.add(saleObj);
-      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Order submitted",
+      });
       return true;
-    } catch(err) {
-      this.messageService.add({severity:'error', summary: 'Error Message', detail:'Unable to add sale'});
-      console.log("fail",err);
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to add sale",
+      });
+      console.log("fail", err);
       return false;
     }
   }
@@ -96,12 +155,20 @@ export class UserService {
   addProduct(productObj) {
     try {
       this.catalogue$.add(productObj);
-      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Product added'});
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Product added",
+      });
       console.log("pass");
       return true;
-    } catch(err) {
-      this.messageService.add({severity:'error', summary: 'Error Message', detail:'Unable to add printer'});
-      console.log("fail",err);
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to add printer",
+      });
+      console.log("fail", err);
       return false;
     }
   }

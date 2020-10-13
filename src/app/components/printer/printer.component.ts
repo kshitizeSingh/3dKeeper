@@ -77,13 +77,44 @@ export class PrinterComponent implements OnInit {
     }
     // this.printerList.push(request
     //   )
-      this.printerDisplay=false
+    this.printerDisplay=false
     this.userService.addPrinterToStore(request)
   }
 
   updatePrinter(value){
     console.log(value)
+    for(let key in value ){
+      if(key.includes('Old')){
+        console.log(key,'in')
+        delete value[key]
+      }
+    }
+    console.log(value)
     this.userService.updatePrinter(value.id,value)
+  }
+
+  delete(id){
+    this.userService.deletePrinter(id)
+  }
+
+  backup(obj){
+    for(let key in obj ){
+      obj[key+'Old']=obj[key]
+    }
+  }
+
+  restoreBackup(obj){
+    obj.ecPerHr=obj.ecPerHrOld
+    obj.printer=obj.printerOld
+    obj.ratePrHr=obj.ratePrHrOld
+    delete obj.ecPerHrOld
+    delete obj.printerOld
+    delete obj.ratePrHrOld
+    delete obj.idOld
+    // for(let key in obj ){
+    //   obj[key]= obj[key+'Old']
+    //   delete  obj[key+'Old']
+    // }
   }
 
 }

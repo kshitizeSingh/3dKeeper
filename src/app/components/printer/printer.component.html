@@ -42,7 +42,12 @@
                                 <label>Rate/Hour</label>
                             </div>
                             <div class="col-8 col-md-6">
-                                {{rowData.ratePrHr}}
+                                <article *ngIf="!edit">
+                                    {{rowData.ratePrHr}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.ratePrHr">
+                                </article>
                             </div>
                         </div>
                         <div class="row">
@@ -50,19 +55,26 @@
                                 <label>EC/Hour</label>
                             </div>
                             <div class="col-8 col-md-6">
-                                {{rowData.ecPerHr}}
+                                <article *ngIf="!edit">
+                                    {{rowData.ecPerHr}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.ecPerHr">
+                                </article>
                             </div>
                         </div>
 
                         <div style="display: flex; justify-content: space-between;">
-                            <section></section>
+                            <section>
+                                <button (click)="delete(rowData.id)">Delete</button>
+                            </section>
                             <section>
                                 <div *ngIf="edit">
-                                    <button (click)="edit=0">Cancel</button>
+                                    <button (click)="edit=0;restoreBackup(rowData)">Cancel</button>
                                     <button (click)="updatePrinter(rowData);edit=0">Save</button>
                                 </div>
                                 <div *ngIf="!edit">
-                                    <button (click)="edit=1">Edit</button>
+                                    <button (click)="edit=1;backup(rowData)">Edit</button>
                                 </div>
                             </section>
 
@@ -86,17 +98,48 @@
 
     </section>
 </main>
-<p-dialog header="Add Printer" [(visible)]="printerDisplay" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
-    <h5>Add Printer</h5>
-    <label>Name</label>
-    <input type="text" [(ngModel)]="newPrinter.printerName"><br>
+<p-dialog header="Add Printer" [(visible)]="printerDisplay" [responsive]="true" showEffect="fade" [modal]="true" [style]="{maxWidth: '500px'}">
 
-    <label>EC/HR</label>
-    <input type="text" [(ngModel)]="newPrinter.ecPerHr"><br>
+    <div class="row">
+        <div class="col-12 col-sm-12 ">
 
-    <label>Rate/HR</label>
-    <input type="text" [(ngModel)]="newPrinter.ratePerHr">
 
-    <button (click)="addPrinter()">AddPrinter</button>
+
+            <div class="row">
+                <div class="col-4 col-sm-4">
+                    <label>Name</label>
+                </div>
+                <div class="col-8 col-md-6"> <input type="text" [(ngModel)]="newPrinter.printerName"><br>
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 col-sm-4 ">
+                    <label>EC/Hour</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="text" [(ngModel)]="newPrinter.ecPerHr">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 col-sm-4">
+                    <label>Rate/HR</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="text" [(ngModel)]="newPrinter.ratePerHr">
+
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <section></section>
+                <section>
+                    <button (click)="addPrinter()">AddPrinter</button>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
 
 </p-dialog>
