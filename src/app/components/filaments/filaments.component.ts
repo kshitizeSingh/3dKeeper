@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {map} from 'rxjs/operators';
 import {AuthService} from 'src/app/service/auth.service';
 import {UserService} from 'src/app/service/user.service';
 
@@ -25,11 +26,18 @@ export class FilamentsComponent implements OnInit {
     // this.cols = \
     this.filament=new Filament
     console.log(this.auth.user$)
-    this.userService.filament$.valueChanges().subscribe(filaments=>{
+    this.userService.filament$.snapshotChanges()
+    .pipe(
+      map((val:Array<any>) => {
+        console.log(val)
+        return val.map(a=>{
+          const data = a.payload.doc.data() ;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }))
+      .subscribe(filaments=>{
       console.log(filaments)
-      filaments.forEach(ele=>{
-        ele['uid']=ele.color+'-'+ele.type
-      })
       this.filamentList=filaments
     })
   }
@@ -55,6 +63,42 @@ export class FilamentsComponent implements OnInit {
     this.filament.breakevenPerGram=null
     this.filament.quotedPerGram=null
 
+  }
+
+  updateFilament(value){
+    console.log(value)
+    for(let key in value ){
+      if(key.includes('Old')){
+        console.log(key,'in')
+        delete value[key]
+      }
+    }
+    console.log(value)
+    this.userService.updateFilament(value.id,value)
+  }
+
+  delete(id){
+    this.userService.deleteFilament(id)
+  }
+
+  backup(obj){
+    for(let key in obj ){
+      obj[key+'Old']=obj[key]
+    }
+    
+  }
+
+  restoreBackup(obj){
+    for(let key in obj ){
+      obj[key]= obj[key+'Old']
+    }
+    for(let key in obj ){
+      if(key.includes('Old')){
+        console.log(key,'in')
+        delete obj[key]
+      }
+    }
+    console.log(obj)
   }
 
 }

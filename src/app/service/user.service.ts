@@ -8,6 +8,7 @@ import { AuthService } from "./auth.service";
 import { switchMap } from "rxjs/operators";
 import { MessageService } from "primeng/api";
 import { Printer } from "../Models/printer";
+import { Fillament } from "../Models/fillament";
 
 @Injectable({
   providedIn: "root",
@@ -47,6 +48,8 @@ export class UserService {
   getUser(userId) {
     return this.afs.doc<any>("users/" + userId);
   }
+
+  // Filament crud        ////////////////////////////////////////////////////////////////////
 
   addPrinterToStore(printerObj) {
     try {
@@ -110,6 +113,7 @@ export class UserService {
     }
   }
 
+  // Filament crud        ////////////////////////////////////////////////////////////////////
   addFillament(filamentObj) {
     try {
       this.filament$.add(filamentObj);
@@ -130,6 +134,49 @@ export class UserService {
       return false;
     }
   }
+
+  updateFilament(id, obj) {
+    try {
+      console.log(this.userId);
+      let updateObj: Fillament = { ...obj };
+      // delete updateObj.id
+      console.log(updateObj);
+      this.afs.doc(`users/${this.userId}/filament/${id}`).update(updateObj);
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Printer Filament",
+      });
+      // console.log("pass");
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to Update Filament",
+      });
+      console.log("error", err);
+    }
+  }
+
+  deleteFilament(id) {
+    try {
+      this.afs.doc(`users/${this.userId}/filament/${id}`).delete();
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Filament Deleted",
+      });
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to delete Filament",
+      });
+      console.log("error", err);
+    }
+  }
+
+  // Sales crud        ////////////////////////////////////////////////////////////////////
 
   addSale(saleObj) {
     try {
@@ -152,6 +199,8 @@ export class UserService {
     }
   }
 
+  // Product crud        ////////////////////////////////////////////////////////////////////
+
   addProduct(productObj) {
     try {
       this.catalogue$.add(productObj);
@@ -170,6 +219,47 @@ export class UserService {
       });
       console.log("fail", err);
       return false;
+    }
+  }
+
+  updateProduct(id, obj) {
+    try {
+      console.log(this.userId);
+      let updateObj: Fillament = { ...obj };
+      // delete updateObj.id
+      console.log(updateObj);
+      this.afs.doc(`users/${this.userId}/catalogues/${id}`).update(updateObj);
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Product Updated",
+      });
+      // console.log("pass");
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to Update Product",
+      });
+      console.log("error", err);
+    }
+  }
+
+  deleteProduct(id) {
+    try {
+      this.afs.doc(`users/${this.userId}/catalogues/${id}`).delete();
+      this.messageService.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Product Deleted",
+      });
+    } catch (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: "Unable to delete Product",
+      });
+      console.log("error", err);
     }
   }
 }
