@@ -1,6 +1,6 @@
 <main class="row">
     <section class="col-sm-12">
-        <p-table [columns]="cols" [value]="catalogueList" dataKey="uid">
+        <p-table [columns]="cols" [value]="catalogueList" dataKey="id">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th style="width: 3em"></th>
@@ -24,9 +24,65 @@
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
                 <tr>
                     <td [attr.colspan]="columns?.length + 1">
-                        <pre>
+
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>Item</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                <article *ngIf="!edit">
+                                    {{rowData.itemName}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.itemName">
+                                </article>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>weight (g)</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                <article *ngIf="!edit">
+                                    {{rowData.weight}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.weight">
+                                </article>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-sm-4 offset-md-2">
+                                <label>timeRequired (hrs)</label>
+                            </div>
+                            <div class="col-8 col-md-6">
+                                <article *ngIf="!edit">
+                                    {{rowData.timeRequired}}
+                                </article>
+                                <article *ngIf="edit">
+                                    <input [(ngModel)]="rowData.timeRequired">
+                                </article>
+                            </div>
+                        </div>
+
+                        <div class="mt-2" style="display: flex; justify-content: space-between;">
+                            <section>
+                                <button (click)="delete(rowData.id)">Delete</button>
+                            </section>
+                            <section>
+                                <div *ngIf="edit">
+                                    <button (click)="edit=0;restoreBackup(rowData)">Cancel</button>
+                                    <button (click)="updateProduct(rowData);edit=0">Save</button>
+                                </div>
+                                <div *ngIf="!edit">
+                                    <button (click)="edit=1;backup(rowData)">Edit</button>
+                                </div>
+                            </section>
+
+                        </div>
+                        <!-- <pre>
                             {{rowData | json}}
-                        </pre>
+                        </pre> -->
                     </td>
                 </tr>
             </ng-template>
